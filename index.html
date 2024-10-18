@@ -30,8 +30,8 @@
   </style>
 </head>
 <body>
-  <video id="video" controls autoplay loop muted>
-    <source src="https://res.cloudinary.com/dlnwcr805/video/upload/v1729263969/video_2024-10-18_10-05-17_seigmz.mp4" type="video/mp4">
+  <video id="video" controls autoplay>
+    <source src="https://res.cloudinary.com/dlnwcr805/video/upload/v1729271249/cmo7zn0pxcvvcvlkalh1.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de videos.
   </video>
 
@@ -50,6 +50,18 @@
       }
 
       video.play();
+
+      // Verifica si el navegador permite el autoplay con sonido
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // El video se está reproduciendo
+        }).catch((error) => {
+          // El autoplay falló debido a restricciones del navegador (sin sonido)
+          // Aquí puedes mostrar un botón o mensaje para que el usuario toque para iniciar el video con sonido
+          console.log("Autoplay fallido, requiere interacción del usuario.");
+        });
+      }
     });
   </script>
 </body>
