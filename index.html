@@ -5,26 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🫶Sueña Crea Innova</title>
   <style>
-    /* Hacer que el video ocupe toda la pantalla */
+    /* Hacer que el video ocupe toda la pantalla sin perder la proporción */
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
+      background-color: black; /* Fondo negro para las barras laterales */
     }
 
     video {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      transform: translate(-50%, -50%);
+      
+      /* Mantener la proporción 16:9 en pantalla vertical */
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Esto asegura que el video no se corte */
     }
   </style>
 </head>
 <body>
-  <video id="video" controls autoplay loop>
+  <video id="video" controls autoplay loop muted>
     <source src="https://res.cloudinary.com/dlnwcr805/video/upload/v1729263969/video_2024-10-18_10-05-17_seigmz.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de videos.
   </video>
