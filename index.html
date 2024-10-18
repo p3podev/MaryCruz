@@ -27,41 +27,50 @@
       max-height: 100%;
       object-fit: contain; /* Esto asegura que el video no se corte */
     }
+
+    #unmute-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none; /* Se oculta al principio */
+    }
   </style>
 </head>
 <body>
-  <video id="video" controls autoplay>
+  <video id="video" muted autoplay playsinline>
     <source src="https://res.cloudinary.com/dlnwcr805/video/upload/v1729271249/cmo7zn0pxcvvcvlkalh1.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de videos.
   </video>
 
+  <button id="unmute-button">Activar Sonido 🔊</button>
+
   <script>
-    // Al cargar la página, intentar activar el modo pantalla completa en el móvil
     document.addEventListener('DOMContentLoaded', function () {
       const video = document.getElementById('video');
+      const unmuteButton = document.getElementById('unmute-button');
 
-      video.requestFullscreen = video.requestFullscreen || 
-                                video.mozRequestFullScreen || 
-                                video.webkitRequestFullscreen || 
-                                video.msRequestFullscreen;
-      
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-      }
+      // Reproducción automática en silencio
+      video.play().then(() => {
+        // Si el video se reproduce en silencio, muestra el botón para desactivar mute
+        unmuteButton.style.display = 'block';
+      }).catch((error) => {
+        console.log("Error en la reproducción automática:", error);
+      });
 
-      video.play();
-
-      // Verifica si el navegador permite el autoplay con sonido
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          // El video se está reproduciendo
-        }).catch((error) => {
-          // El autoplay falló debido a restricciones del navegador (sin sonido)
-          // Aquí puedes mostrar un botón o mensaje para que el usuario toque para iniciar el video con sonido
-          console.log("Autoplay fallido, requiere interacción del usuario.");
-        });
-      }
+      // Al hacer clic en el botón, se desactiva el mute y se oculta el botón
+      unmuteButton.addEventListener('click', () => {
+        video.muted = false;  // Desactiva el mute
+        video.play();         // Reanuda el video
+        unmuteButton.style.display = 'none'; // Oculta el botón
+      });
     });
   </script>
 </body>
