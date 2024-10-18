@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🫶Sueña Crea Innova</title>
+  <style>
+    /* Hacer que el video ocupe toda la pantalla */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" controls autoplay loop>
+    <source src="https://res.cloudinary.com/dlnwcr805/video/upload/v1729263969/video_2024-10-18_10-05-17_seigmz.mp4" type="video/mp4">
+    Tu navegador no soporta la reproducción de videos.
+  </video>
+
+  <script>
+    // Al cargar la página, intentar activar el modo pantalla completa en el móvil
+    document.addEventListener('DOMContentLoaded', function () {
+      const video = document.getElementById('video');
+
+      video.requestFullscreen = video.requestFullscreen || 
+                                video.mozRequestFullScreen || 
+                                video.webkitRequestFullscreen || 
+                                video.msRequestFullscreen;
+      
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      }
+
+      video.play();
+    });
+  </script>
+</body>
+</html>
